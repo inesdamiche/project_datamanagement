@@ -4,4 +4,31 @@ format: html
 editor: visual
 ---
 
+# Links
+
+## Link to the githib project
+
+<https://github.com/inesdamiche/project_datamanagement.git>
+
+## Link to the sources 
+
+
+# Short description of the sources (500 words)
+
+
+# Tables with basic information 
+
+
+# Short description of each variable 
+
+# Description of the data joining, cleaning, etc
+expliquer comment on a réglé le problème des noms de pays différents 
+
+# Description of the research question (500 words)
+
+# Graphical representation of the main variable (women in parliament)
+
+
+
+
 
