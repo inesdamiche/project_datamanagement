@@ -4,19 +4,44 @@ format: html
 editor: visual
 ---
 
+# Preparation 
+```{r}
+#| message: FALSE
+here::i_am("project_datamanagement.Rproj")
+library(here)
+library(vroom) 
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
 # Links
 
 ## Link to the githib project
 
 <https://github.com/inesdamiche/project_datamanagement.git>
 
-## Link to the sources 
+## Links to the sources 
 
 
 # Short description of the sources (500 words)
 
 
 # Tables with basic information 
+
+## Looading the datasets  
+```{r}
+metadata <- vroom(here("data csv/countries_metadata.csv")) 
+gender_dev <- vroom(here("data csv/dvlpmt_gender_index.csv"))
+planet_HDI <- vroom(here("data csv/HDI_planet.csv"))
+HDI <- vroom(here("data csv/HDI.csv"))
+inequalities <- vroom(here("data csv/inequalities.csv"))
+world_dev <- vroom(here("data csv/World Development Indicators - WB.csv"))
+```
+## Tables
+```{r}
+
+```
 
 
 # Short description of each variable 
