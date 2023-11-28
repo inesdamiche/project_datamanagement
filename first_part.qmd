@@ -141,6 +141,115 @@ world_dev |>
 
 # Description of the data joining, cleaning, etc
 
+
+```{r}
+# Data Cleaning - World Development Indicators.
+# We turn the rows that do not contains a values into NA value
+Dev <- world_dev |>
+  mutate(`2021 [YR2021]` = na_if(`2021 [YR2021]`, ",,"))
+# We turn the values into numeric ones and make sure that Rstudio takes into account that the decimal separator is "," and not "."
+Dev <- Dev|>
+  mutate(`2021 [YR2021]` = as.numeric(gsub(",",".", `2021 [YR2021]`)))
+```
+
+```{r}
+# UNDP Database
+#we select colums we are interested in and turn the values into numeric ones 
+HDI<-
+  HDI|>
+  select(`Table 1. Human Development Index and its components`,...3)|>
+  rename(`Country Name`=`Table 1. Human Development Index and its components`,HDI_val=...3)
+HDI <- HDI|>
+  mutate(HDI_val = as.numeric(gsub(",", ".", HDI_val)))
+
+#Gender Development Index
+GDI<-gender_dev|>
+  select(`Table 4. Gender Development Index`,...3)|>
+  rename(`Country Name`=`Table 4. Gender Development Index`,GDI_val=...3)|>
+   mutate(GDI_val = as.numeric(gsub(",", ".", GDI_val)))
+
+# Gini Coefficient
+Gini<-inequalities|>
+  select(`Table 3. Inequality-adjusted Human Development Index`,...31)|>
+  rename(`Country Name`=`Table 3. Inequality-adjusted Human Development Index`,Gini_coef=...31)|>
+  mutate(Gini_coef = as.numeric(gsub(",", ".", Gini_coef)))
+
+#PHDI
+PHDI<-planet_HDI|>
+  select(`Table 7. Planetary pressures-adjusted Human Development Index`,...5)|>
+  rename(`Country Name`=`Table 7. Planetary pressures-adjusted Human Development Index`,PHDI=...5)|>
+  mutate(PHDI = as.numeric(gsub(",", ".", PHDI)))
+
+```
+
+
+```{r}
+# Metadata cleaning 
+#World Bank
+meta_WB<-metadata|>
+  select(Code,`Table Name`,Region,`Income Group`)|>
+  rename(`Country Name`=`Table Name`)
+#UNDP
+meta_UNDP<-metadata_UNDP|>
+  select(`Country or Area`,`ISO-alpha3 Code`)|>
+  rename(`Country Name`=`Country or Area`)
+```
+
+```{r}
+#MetaData Joining - UNDP databases
+#join UNDP data with their Country Code
+
+# Function in order to perform a "left-join" for each databases
+country_code<-function(dataset1,dataset2){
+  dataset1<-left_join(dataset1, dataset2, join_by(`Country Name`))|>
+    rename(`Country Code`=`ISO-alpha3 Code`)|>
+    drop_na(`Country Code`)|>
+    select(-`Country Name`)
+  
+}
+
+# we create a new metadata dataframe to join the country code for the 12 countries that couldn't be joined
+
+other <- tibble(`Country Name`  = c("United States", "United Kingdom", "Tanzania (United Republic of)", "Palestine, State of", "Netherlands","Moldova (Republic of)",	"Korea (Republic of)" , "Korea (Democratic People's Rep. of)" , "Hong Kong, China (SAR)",
+"Eswatini (Kingdom of)" , "Côte d'Ivoire" , "Congo (Democratic Republic of the)"),
+  `ISO-alpha3 Code` = c("USA","GBR","TZA","PSE","NLD", "MDA","KOR","PRK","HKG","SWZ","CIV","COD"))
+meta_UNDP<-rbind(meta_UNDP,other)
+
+
+HDI<-country_code(HDI,meta_UNDP)
+GDI<-country_code(GDI,meta_UNDP)
+Gini<-country_code(Gini,meta_UNDP)
+PHDI<-country_code(PHDI,meta_UNDP)
+```
+
+```{r}
+#MetaData Joining - WB databases
+meta_WB<-meta_WB|>
+  select(-`Country Name`)|>
+  rename(`Country Code`=`Code`)
+Dev<-left_join(Dev, meta_WB, join_by(`Country Code`))
+
+```
+
+```{r}
+# Databases Joining
+Dev <-inner_join(Dev,GDI,join_by(`Country Code`))
+Dev <-inner_join(Dev,HDI,join_by(`Country Code`))
+Dev <-inner_join(Dev,Gini,join_by(`Country Code`))
+
+# Final Dataset
+dataset <- inner_join(Dev, PHDI, join_by(`Country Code`))
+
+# Turn the Indicators from the World Bank Databases into Columns 
+dataset<-dataset|>
+  select(-`Series Code`)|>
+  pivot_wider(names_from = `Series Name`,values_from = `2021 [YR2021]`)
+
+# Elimination of all the NA Values 
+dataset<-na.omit(dataset)
+
+```
+
 # Description of the research question (500 words)
 
 # Graphical representation of the main variable (women in parliament)
