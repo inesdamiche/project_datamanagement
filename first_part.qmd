@@ -104,6 +104,7 @@ planet_HDI <- vroom(here("data csv/HDI_planet.csv"))
 HDI <- vroom(here("data csv/HDI.csv"))
 inequalities <- vroom(here("data csv/inequalities.csv"))
 world_dev <- vroom(here("data csv/World Development Indicators - WB.csv"))
+metadata_UNDP <- vroom(here("data csv/UNSD — Methodology.csv")) 
 ```
 
 ## Tables (before cleaning and joining)
