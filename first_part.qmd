@@ -34,9 +34,7 @@ We did the same thing for the meta-data (to categorise the countries by income g
 
 <https://hdr.undp.org/data-center/documentation-and-downloads> We selected : "Human development Index and components" " Inequality-adjusted Human Development Index" "Gender development Index" "Planetary Pressure-adjusted HDI"
 
-The meta-data for these databases is taken from the UN's Staistics Division website : we clicked dowloaded the CSV version 
-<https://unstats.un.org/unsd/methodology/m49/overview/>
-
+The meta-data for these databases is taken from the UN's Statistics Division website : we downloaded the CSV version <https://unstats.un.org/unsd/methodology/m49/overview/>
 
 # Short description of the sources
 
@@ -145,7 +143,6 @@ world_dev |>
 
 # Description of the data joining, cleaning, etc
 
-
 ```{r}
 # Data Cleaning - World Development Indicators.
 # We turn the rows that do not contains a values into NA value
@@ -185,7 +182,6 @@ PHDI<-planet_HDI|>
   mutate(PHDI = as.numeric(gsub(",", ".", PHDI)))
 
 ```
-
 
 ```{r}
 # Metadata cleaning 
@@ -257,3 +253,6 @@ dataset<-na.omit(dataset)
 # Description of the research question (500 words)
 
 # Graphical representation of the main variable (women in parliament)
+
+```{r}
+```
