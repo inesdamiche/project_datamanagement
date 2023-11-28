@@ -18,23 +18,83 @@ library(ggplot2)
 
 # Links
 
-## Link to the githib project
+## Link to the github project
 
 <https://github.com/inesdamiche/project_datamanagement.git>
 
 ## Links to the sources
 
-World Bank Database We got the data by generating it through the World Bank Database by selecting all the countries , 2021 for the year and our variables of interest (Pourcentage of Women in Parliament , Female Labour Participation and Labour Participation, Annual GDP growth ) and by clicking on "Download options": [https://databank.worldbank.org/source/world-](https://databank.worldbank.org/source/world-development-indicators){.uri}[development](https://databank.worldbank.org/source/world-development-indicators){.uri}[-indicators](https://databank.worldbank.org/source/world-development-indicators){.uri}
+#### For the World Bank Database
+
+We got the data by generating it through the World Bank Database by selecting all the countries , 2021 for the year and our variables of interest (Percentage of Women in Parliament , Female Labour Participation and Labour Participation, Annual GDP growth ) and by clicking on "Download options": <https://databank.worldbank.org/source/world-development-indicators>
 
 We did the same thing for the meta-data (to categorise the countries by income group and regions): <https://databank.worldbank.org/source/world-development-indicators>
 
-For the Human Development Composite Indices : <https://hdr.undp.org/data-center/documentation-and-downloads> We selected : "Human development Index and components" " Inequality-adjusted Human Development Index" "Gender development Index" "Planetary Pressure-adjusted HDI"
+#### For the Human Development Composite Indices
 
-# Short description of the sources (500 words)
+<https://hdr.undp.org/data-center/documentation-and-downloads> We selected : "Human development Index and components" " Inequality-adjusted Human Development Index" "Gender development Index" "Planetary Pressure-adjusted HDI"
+
+# Short description of the sources
+
+**Indicator: Proportion of seats held by women in national parliaments (%)**
+
+The data is compiled by the Inter-Parliamentary Union (IPU) ([www.ipu.org](http://www.ipu.org))
+
+based on information provided by National Parliaments. The data is compiled every year.
+
+**Indicator: Labor force participation rate, total (% of total population ages 15+) (modeled ILO estimate)**
+
+The data is compiled by the International Labor Organization(<https://ilostat.ilo.org/data/>) from labor force surveys, censuses, and establishment censuses and surveys. For some countries a combination of these sources is used. It is part of the \"ILO modeled estimates database\".
+
+The data is compiled every year.
+
+**Indicator: Labor force participation rate, female (% of female population ages 15-64) (modeled ILO estimate)**
+
+The data is compiled in the same way as for the previous indicator.
+
+**Indicator: GDP growth (annual %)**
+
+The data come from the World Bank national accounts data and OECD National Accounts files. It is compiled every year.
+
+**Indicator: planetary pressures-adjusted Human Development Index (HDI, PHDI, adjustment factor for planetary pressures, Carbon dioxide emissions per capita (production), Carbon dioxide emissions (production) index, Material footprint per capita, Material footprint index)**
+
+The data from this base is compiled by using different sources (HDRO calculations based on data from Barro and Lee (2018), IMF (2022), UNDESA (2022a), UNESCO Institute for Statistics (2022), United Nations Statistics Division (2022), World Bank (2022), Global Carbon Project (2022), United Nations Environment Programme (2022)).
+
+Some variables are computed thanks to the values of the other variables.
+
+**Indicator: Women Business and the Law Index Score (scale 1-100)**
+
+The data is compiled by the World Bank (<https://wbl.worldbank.org/>) every year.
+
+**Indicator: Military expenditure (% of GDP)**
+
+ The data is compiled every year by the Stockholm International Peace Research Institute (SIPRI) (<https://www.sipri.org/databases>).  
+
+In the many cases where SIPRI cannot make independent estimates, it uses the national data provided. Because of the differences in definitions and the difficulty in verifying the accuracy and completeness of data, data on military expenditures are not always comparable across countries. However, SIPRI puts a high priority on ensuring that the data series for each country is comparable over time.
+
+**Indicator: Human development index and its components (HDI, Life expectancy at birth, expected years of schooling, mean years of schooling, gross national income per capita, GNI per capita rank minus HDI rank, HDI rank)**
+
+The data from this base is compiled by using different sources (HDRO calculations based on data from Barro and Lee (2018), IMF (2022), UNDESA (2022a), UNDESA (2022b), UNESCO Institute for Statistics (2022), United Nations Statistics Division (2022), World Bank (2022), UNDESA (2022a), CEDLAS and World Bank (2022), ICF Macro Demographic and Health Surveys, UNICEF Multiple Indicator Cluster Surveys, OECD (2022)).
+
+Some sources are used to compute several variables.
+
+Some variables are computed thanks to the values of the other variables.
+
+**Indicator: Gender development index**
+
+The data from this base is compiled by using different sources (HDRO calculations based on data from Barro and Lee (2018), ILO (2022), IMF (2022), UNDESA (2022a), UNESCO Institute for Statistics (2022), United Nations Statistics Division (2022) and World Bank (2022), CEDLAS and World Bank (2022), ICF Macro Demographic and Health Surveys, UNICEF Multiple Indicator Cluster Surveys, Barro and Lee (2018), HDRO calculations based on ILO (2022), IMF (2022)).
+
+Some sources are used to compute several variables.
+
+Some variables are computed thanks to the values of the other variables.
+
+**Indicator: Inequality-adjusted Human Development Index (Coefficient of human inequality, Inequality in life expectancy, Inequality-adjusted life expectancy index, Inequality in education, Inequality-adjusted education index, Inequality in income, Inequality-adjusted income index, Income shares held by (%), Gini coefficient)**
+
+The data from this base is compiled by using different sources (HDRO calculations based on data from Barro and Lee (2018), IMF (2022), UNDESA (2022a), UNESCO Institute for Statistics (2022), United Nations Statistics Division (2022) and World Bank (2022), World Inequality Database (2022), Center for Distributive, United Nations Educational Scientific and Cultural Organization Institute for Statistics, United Nations Children\'s Fund Multiple Indicator Cluster Surveys).
 
 # Tables with basic information
 
-## Looading the datasets
+## Loading the datasets
 
 ```{r}
 #| message: FALSE
@@ -46,7 +106,7 @@ inequalities <- vroom(here("data csv/inequalities.csv"))
 world_dev <- vroom(here("data csv/World Development Indicators - WB.csv"))
 ```
 
-## Tables
+## Tables (before cleaning and joining)
 
 ```{r}
 metadata |> 
@@ -79,8 +139,6 @@ world_dev |>
 # Short description of each variable
 
 # Description of the data joining, cleaning, etc
-
-expliquer comment on a réglé le problème des noms de pays différents
 
 # Description of the research question (500 words)
 
