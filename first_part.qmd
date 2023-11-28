@@ -44,7 +44,7 @@ based on information provided by National Parliaments. The data is compiled ever
 
 **Indicator: Labor force participation rate, total (% of total population ages 15+) (modeled ILO estimate)**
 
-The data is compiled by the International Labor Organization(<https://ilostat.ilo.org/data/>) from labor force surveys, censuses, and establishment censuses and surveys. For some countries a combination of these sources is used. It is part of the \"ILO modeled estimates database\".
+The data is compiled by the International Labor Organization(<https://ilostat.ilo.org/data/>) from labor force surveys, censuses, and establishment censuses and surveys. For some countries a combination of these sources is used. It is part of the "ILO modeled estimates database".
 
 The data is compiled every year.
 
@@ -90,7 +90,7 @@ Some variables are computed thanks to the values of the other variables.
 
 **Indicator: Inequality-adjusted Human Development Index (Coefficient of human inequality, Inequality in life expectancy, Inequality-adjusted life expectancy index, Inequality in education, Inequality-adjusted education index, Inequality in income, Inequality-adjusted income index, Income shares held by (%), Gini coefficient)**
 
-The data from this base is compiled by using different sources (HDRO calculations based on data from Barro and Lee (2018), IMF (2022), UNDESA (2022a), UNESCO Institute for Statistics (2022), United Nations Statistics Division (2022) and World Bank (2022), World Inequality Database (2022), Center for Distributive, United Nations Educational Scientific and Cultural Organization Institute for Statistics, United Nations Children\'s Fund Multiple Indicator Cluster Surveys).
+The data from this base is compiled by using different sources (HDRO calculations based on data from Barro and Lee (2018), IMF (2022), UNDESA (2022a), UNESCO Institute for Statistics (2022), United Nations Statistics Division (2022) and World Bank (2022), World Inequality Database (2022), Center for Distributive, United Nations Educational Scientific and Cultural Organization Institute for Statistics, United Nations Children's Fund Multiple Indicator Cluster Surveys).
 
 # Tables with basic information
 
