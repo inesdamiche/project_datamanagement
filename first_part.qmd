@@ -34,6 +34,10 @@ We did the same thing for the meta-data (to categorise the countries by income g
 
 <https://hdr.undp.org/data-center/documentation-and-downloads> We selected : "Human development Index and components" " Inequality-adjusted Human Development Index" "Gender development Index" "Planetary Pressure-adjusted HDI"
 
+The meta-data for these databases is taken from the UN's Staistics Division website : we clicked dowloaded the CSV version 
+<https://unstats.un.org/unsd/methodology/m49/overview/>
+
+
 # Short description of the sources
 
 **Indicator: Proportion of seats held by women in national parliaments (%)**
