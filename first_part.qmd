@@ -4,7 +4,8 @@ format: html
 editor: visual
 ---
 
-# Preparation 
+# Preparation
+
 ```{r}
 #| message: FALSE
 here::i_am("project_datamanagement.Rproj")
@@ -21,16 +22,22 @@ library(ggplot2)
 
 <https://github.com/inesdamiche/project_datamanagement.git>
 
-## Links to the sources 
+## Links to the sources
 
+World Bank Database We got the data by generating it through the World Bank Database by selecting all the countries , 2021 for the year and our variables of interest (Pourcentage of Women in Parliament , Female Labour Participation and Labour Participation, Annual GDP growth ) and by clicking on "Download options": [https://databank.worldbank.org/source/world-](https://databank.worldbank.org/source/world-development-indicators){.uri}[development](https://databank.worldbank.org/source/world-development-indicators){.uri}[-indicators](https://databank.worldbank.org/source/world-development-indicators){.uri}
+
+We did the same thing for the meta-data (to categorise the countries by income group and regions): <https://databank.worldbank.org/source/world-development-indicators>
+
+For the Human Development Composite Indices : <https://hdr.undp.org/data-center/documentation-and-downloads> We selected : "Human development Index and components" " Inequality-adjusted Human Development Index" "Gender development Index" "Planetary Pressure-adjusted HDI"
 
 # Short description of the sources (500 words)
 
+# Tables with basic information
 
-# Tables with basic information 
+## Looading the datasets
 
-## Looading the datasets  
 ```{r}
+#| message: FALSE
 metadata <- vroom(here("data csv/countries_metadata.csv")) 
 gender_dev <- vroom(here("data csv/dvlpmt_gender_index.csv"))
 planet_HDI <- vroom(here("data csv/HDI_planet.csv"))
@@ -38,46 +45,43 @@ HDI <- vroom(here("data csv/HDI.csv"))
 inequalities <- vroom(here("data csv/inequalities.csv"))
 world_dev <- vroom(here("data csv/World Development Indicators - WB.csv"))
 ```
+
 ## Tables
+
 ```{r}
 metadata |> 
-  summarise("nb of rows in metadata" = nrow(metadata), "nb of columns in metadata"   = ncol(metadata), "number of na" = sum(is.na(metadata)))|>
+  summarise("nb of rows in metadata" = nrow(metadata), "nb of columns in metadata"   = ncol(metadata))|>
   knitr::kable() 
 
 gender_dev |> 
-  summarise("nb of rows in gender_dev" = nrow(gender_dev), "nb of columns in metadata"   = ncol(gender_dev), "number of na" = sum(is.na(gender_dev)))|>
+  summarise("nb of rows in gender_dev" = nrow(gender_dev), "nb of columns in metadata"   = ncol(gender_dev))|>
   knitr::kable()
 
 HDI |> 
-  summarise("nb of rows in HDI" = nrow(HDI), "nb of columns in HDI"   = ncol(HDI), "number of na" = sum(is.na(HDI)))|>
+  summarise("nb of rows in HDI" = nrow(HDI), "nb of columns in HDI"   = ncol(HDI))|>
   knitr::kable()
 
 inequalities |> 
-  summarise("nb of rows in inequalities" = nrow(inequalities), "nb of columns in inequalities" = ncol(inequalities), "number of na" = sum(is.na(inequalities)))|>
+  summarise("nb of rows in inequalities" = nrow(inequalities), "nb of columns in inequalities" = ncol(inequalities))|>
   knitr::kable()
 
 planet_HDI |> 
-  summarise("nb of rows in planet_HDI" = nrow(planet_HDI), "nb of columns in planet_HDI" = ncol(planet_HDI), "number of na" = sum(is.na(planet_HDI)))|>
+  summarise("nb of rows in planet_HDI" = nrow(planet_HDI), "nb of columns in planet_HDI" = ncol(planet_HDI))|>
   knitr::kable()
 
 #attention ici il faut remplacer .. par des NA 
 world_dev |> 
-  summarise("nb of rows in world_dev " = nrow(world_dev), "nb of columns in world_dev" = ncol(world_dev), "number of na" = sum(is.na(world_dev)))|>
+  summarise("nb of rows in world_dev " = nrow(world_dev), "nb of columns in world_dev" = ncol(world_dev))|>
   knitr::kable()
 
 ```
 
-
-# Short description of each variable 
+# Short description of each variable
 
 # Description of the data joining, cleaning, etc
-expliquer comment on a réglé le problème des noms de pays différents 
+
+expliquer comment on a réglé le problème des noms de pays différents
 
 # Description of the research question (500 words)
 
 # Graphical representation of the main variable (women in parliament)
-
-
-
-
-
