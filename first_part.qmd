@@ -270,5 +270,18 @@ dataset<-na.omit(dataset)
 
 # Graphical representation of the main variable (women in parliament)
 
+## Distribution of the proportion of seats held by women in national parliaments (in percentage) ...
+
+###... By Country
+
 ```{r}
+dataset|>
+  ggplot(aes(x=`Proportion of seats held by women in national parliaments (%)`)) +
+           geom_histogram(bins=20)+
+  geom_rug()
 ```
+### ... By Regions
+dataset|> group_by
+
+###... By Income Group
+
