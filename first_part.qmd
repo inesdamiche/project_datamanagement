@@ -34,11 +34,7 @@ We did the same thing for the meta-data (to categorise the countries by income g
 
 <https://hdr.undp.org/data-center/documentation-and-downloads> We selected : "Human development Index and components" " Inequality-adjusted Human Development Index" "Gender development Index" "Planetary Pressure-adjusted HDI"
 
-<<<<<<< HEAD
 The meta-data for these databases is taken from the UN's Statistics Division website : we downloaded the CSV version <https://unstats.un.org/unsd/methodology/m49/overview/>
-=======
-The meta-data for these databases is taken from the UN's Staistics Division website : we clicked on dowload the CSV version <https://unstats.un.org/unsd/methodology/m49/overview/>
->>>>>>> 38f33dd13916698499e47181f985ce1a6c8b71e2
 
 # Short description of the sources
 
@@ -48,7 +44,7 @@ The World Development Indicators are compiled by the **World Bank**. There are "
 
 ### Indicator: Proportion of seats held by women in national parliaments (%)
 
-The data is compiled by the **Inter-Parliamentary Union (IPU)** ([www.ipu.org](http://www.ipu.org)) based on information provided by National Parliaments. The data is compiled every year.
+The data is compiled by the **Inter-Parliamentary Union (IPU)** (<https://ipu.org/>) based on information provided by National Parliaments. The data is compiled every year.
 
 ### Indicator: Women Business and the Law Index Score (scale 1-100)
 
