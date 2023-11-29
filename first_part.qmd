@@ -26,13 +26,13 @@ library(ggplot2)
 
 ### For the World Bank Database
 
-We got the data by generating it through the World Bank Database by selecting all the countries , 2021 for the year and our variables of interest (Percentage of Women in Parliament , Female Labour Participation and Labour Participation, Annual GDP growth ) and by clicking on "Download options": <https://databank.worldbank.org/source/world-development-indicators>
+We got the data by generating it through the World Bank Database by selecting all the countries , 2021 for the year and our variables of interest (Percentage of Women in Parliament , Female Labour Participation and Labour Participation, Annual GDP growth, Military expenditure, Women Business and the Law Index Score) and by clicking on "Download options": <https://databank.worldbank.org/source/world-development-indicators>
 
-We did the same thing for the meta-data (to categorise the countries by income group and regions): <https://databank.worldbank.org/source/world-development-indicators>
+We did the same thing for the meta-data (to join the countries by income group and regions): <https://databank.worldbank.org/source/world-development-indicators>
 
 ### For the Human Development Composite Indices
 
-<https://hdr.undp.org/data-center/documentation-and-downloads> We selected : "Human development Index and components" " Inequality-adjusted Human Development Index" "Gender development Index" "Planetary Pressure-adjusted HDI"
+<https://hdr.undp.org/data-center/documentation-and-downloads> We selected : "Human development Index and components" " Inequality-adjusted Human Development Index" "Gender development Index" "Planetary Pressure-adjusted HDI".
 
 The meta-data for these databases is taken from the UN's Statistics Division website : we downloaded the CSV version <https://unstats.un.org/unsd/methodology/m49/overview/>
 
@@ -54,11 +54,11 @@ The data is compiled every year by the **World Bank** (<https://wbl.worldbank.or
 
 The data is compiled every year by the **Stockholm International Peace Research Institute (SIPRI)** (<https://www.sipri.org/databases>).
 
-Because of the differences in definitions and the difficulty in verifying the accuracy and completeness of data, data on military expenditures are not always comparable across countries. However, SIPRI puts a high priority on ensuring that the data series for each country is comparable over time.
+Because of the differences in definitions and the difficulty in verifying the accuracy and completeness of data, data on military expenditures are not always comparable across countries. However, SIPRI states that they put a high priority on ensuring that the data series for each country is comparable over time.
 
 ### Indicator: Labor force participation rate, total (% of total population ages 15+) (modeled ILO estimate)
 
-The data is compiled by the **International Labor Organization** (<https://ilostat.ilo.org/data/>) from labor force surveys, censuses, and establishment censuses and surveys. It is part of the "ILO modeled estimates database". The data is compiled every year.
+The data is compiled by the **International Labor Organization** (<https://ilostat.ilo.org/data/>) from labor force surveys, censuses and establishment censuses, and surveys. It is part of the "ILO modeled estimates database". The data is compiled every year.
 
 ### Indicator: Labor force participation rate, female (% of female population ages 15-64) (modeled ILO estimate)
 
@@ -96,7 +96,7 @@ From this dataset, we chose to only use the indicator "GDI" because we think it 
 
 -   Expected years of schooling: **UNESCO Institute for Statistics (2022), ICF Macro Demographic and Health Surveys, United Nations Children's Fund (UNICEF) Multiple Indicator Cluster Surveys and OECD (2022)**
 
--   Mean years of schooling for adults ages 25 andcolder: **UNESCO Institute for Statistics (2022), Barro and Lee (2018), ICF Macro Demographic and Health Surveys, UNICEF's Multiple Indicator, Cluster Surveys and OECD (2022)**
+-   Mean years of schooling for adults ages 25 and older: **UNESCO Institute for Statistics (2022), Barro and Lee (2018), ICF Macro Demographic and Health Surveys, UNICEF's Multiple Indicator, Cluster Surveys and OECD (2022)**
 
 -   Estimated earned income: **Human Development Report Office estimates based on female and male shares of the economically active population, the ratio of the female to male wage in all sectors and gross national income in 2017 purchasing power parity (PPP) terms, and female and male shares of population from ILO (2022), UNDESA (2019), World Bank (2022), United Nations Statistics Division (2022) and IMF (2022)**
 
@@ -156,7 +156,7 @@ world_dev |>
 
 ### Human Development Index
 
-The Human Development Index (HDI) is a composite index that measures a country's average achievement in human development. It takes into account three dimensions: health, education, and standard of living. The HDI is calculated by taking the geometric mean of three normalized indices for each dimension: life expectancy at birth (health), mean years of schooling for adults aged 25 years, and expected years of schooling for children of school-entering age (education), and the gross national income per capita measured in logarithm (standard of living). (UNDP , 2023)
+The Human Development Index (HDI) is a composite index that measures a country's average achievement in human development. It takes into account three dimensions: health, education, and standard of living. The HDI is calculated by taking the geometric mean of three normalized indices for each dimension: life expectancy at birth (health), mean years of schooling for adults aged 25 years and older, and expected years of schooling for children of school-entering age (education), and the gross national income per capita measured in logarithm (standard of living). (UNDP , 2023)
 
 ### Gender Development Index
 
@@ -164,7 +164,7 @@ The Gender Development Index (GDI) is a variant of the HDI which measures gender
 
 ### Gini Coefficient
 
-The Gino coefficient aims to measures income inquality within a population. It takes a value from 0 (perfect equality) to 1 (perfect inequality). It illustrates to extent to which the income distribution deviates from perfect equality.
+The Gini coefficient aims to measures income inequality within a population. It takes a value from 0 (perfect equality) to 1 (perfect inequality). It illustrates the extent to which the income distribution deviates from perfect equality.
 
 ### Planetary Pressures- Adjusted Human Development Index
 
@@ -176,17 +176,17 @@ It is the percentage of parliamentary seats (single or lower chamber) held by wo
 
 ### Labor force participation rate , female (% of female population ages 15+)(modeled ILO estimate) and Labor force participation rate , total (% of total population ages 15+)(modeled ILO estimate)
 
-The Labor force participation rate is the proportion of the population ages 15 and older that are economically active.Here "economically active" concerns "all people who supply labor for the production of goods and services during a specified period". (World Bank , 2023).
+The Labor force participation rate is the proportion of the population ages 15 and older that are economically active. Here "economically active" concerns "all people who supply labor for the production of goods and services during a specified period". (World Bank , 2023).
 
-The Female Labor force participation rate is the proportion of the female population ages 15 and older that are economically active
+The Female Labor force participation rate is the proportion of the female population ages 15 and older that are economically active.
 
-### GDP Growth (anuual %)
+### GDP Growth (annual %)
 
-The Annual GDP Growth is the Aanual percentage growth rate of GDP at market prices based on constant local currency. According to the World Bank's (2023) definition , the GDP is the sum of gross value added by all resident producers in the economy plus any product taxes and minus any subsidies not included in the value of the products. It aims to measure economic growth.
+The Annual GDP Growth is the annual percentage growth rate of GDP at market prices based on constant local currency. According to the World Bank's (2023) definition , the GDP is the sum of gross value added by all resident producers in the economy plus any product taxes and minus any subsidies not included in the value of the products. It aims to measure economic growth.
 
 ### Women Business and the Law Index Score (scale 1-100)
 
-The Women Business and the Law Index Score is an Index developed by the World Bank that measures on a scale from 1 to 100 how laws and regulations affect women's economic opportunity.It is computed by taking the average score of 9 indices (Mobility, Workplace, Pay, Marriage, Parenthood, Entrepreneurship, Assets and Pension ). (World Bank , 2023)
+The Women Business and the Law Index Score is an Index developed by the World Bank that measures on a scale from 1 to 100 how laws and regulations affect women's economic opportunity. It is computed by taking the average score of 9 indices (Mobility, Workplace, Pay, Marriage, Parenthood, Entrepreneurship, Assets and Pension ). (World Bank , 2023)
 
 ### Military expenditure (% of GDP)
 
@@ -265,7 +265,7 @@ meta_UNDP<-metadata_UNDP|>
 
 ### Meta-Data and Databases
 
-For the UNDP datasets , we computed a function to simplify the joining process with the meta-data. The aim of the function is to perform a left join with the UNDP database and the meta-data database,renaming the columns names and deleting the country name from the final dataset in order to join them with the main dasaset ( World Development Indicators) after.
+For the UNDP datasets , we computed a function to simplify the joining process with the meta-data. The aim of the function is to perform a left join with the UNDP database and the meta-data database,renaming the columns names and deleting the country name from the final dataset in order to join them with the main dataset ( World Development Indicators) after.
 
 Because some countries' names were computed in the meta-data database, we computed them manually by creating a separate dataset with the country names (as in the UNDP datasets) and their country code and binded them to the initial UNDP meta-data database.
 
@@ -296,7 +296,7 @@ Gini<-country_code(Gini,meta_UNDP)
 PHDI<-country_code(PHDI,meta_UNDP)
 ```
 
-For the World Bank datase , we joined the meta-data with region and the income groups by country code to the initial database.
+For the World Bank database , we joined the meta-data with region and the income groups by country code to the initial database.
 
 ```{r}
 #MetaData Joining - WB databases
