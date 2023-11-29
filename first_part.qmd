@@ -1,7 +1,6 @@
 ---
 title: "Description of the data sets"
 format: html
-editor: visual
 ---
 
 # Preparation
@@ -153,6 +152,26 @@ world_dev |>
 
 # Short description of each variable
 
+### Human Development Index
+
+### Gender Development Index
+
+### Gini Coefficient
+
+### Planetary Pressures- Adjusted Human Development Index
+
+### Proportion of seats held by women in national parliaments(in %)
+
+### Labor force participation rate , female (% of female population ages 15+)(modeled ILO estimate)
+
+### Labor force participation rate , total (% of total population ages 15+)(modeled ILO estimate)
+
+### GDP Growth (anuual %)
+
+### Women Business and the Law Index Score (scle 1-100)
+
+### Military expenditure (% of GDP)
+
 # Description of the data joining, cleaning, etc
 
 ```{r}
@@ -268,29 +287,8 @@ dataset<-na.omit(dataset)
 
 ## Distribution of the proportion of seats held by women in national parliaments (in percentage) ...
 
-###... By Country
+### ...In the World
 
-```{r}
-dataset|>
-  ggplot(aes(x=`Proportion of seats held by women in national parliaments (%)`)) +
-           geom_histogram(bins=20)+
-  geom_rug()
-
-dataset|>
-  ggplot(aes(x=`Proportion of seats held by women in national parliaments (%)`)) +
-           geom_histogram(bins=20)+
-  geom_rug()+
-  facet_wrap(~Region)
-
-
-dataset|>
-  ggplot(aes(x=`Proportion of seats held by women in national parliaments (%)`)) +
-           geom_histogram(bins=20)+
-  geom_rug()+
-  facet_wrap(~`Income Group`)
-
-
-```
 ```{r}
 dataset |>
   ggplot(aes(x = `Proportion of seats held by women in national parliaments (%)`)) +
@@ -299,6 +297,10 @@ dataset |>
        x = "Proportion of Seats Held by Women (%)",
        y = "Density") 
 
+```
+### ... By Income Group
+
+```{r}
 dataset |>
   ggplot(aes(x = `Proportion of seats held by women in national parliaments (%)`)) +
   geom_density(fill = "orange") +
@@ -306,7 +308,11 @@ dataset |>
        x = "Proportion of Seats Held by Women (%)",
        y = "Density") +
   facet_wrap(~`Income Group`)
+```
 
+### ... By Region
+
+```{r}
 dataset |>
   ggplot(aes(x = `Proportion of seats held by women in national parliaments (%)`)) +
   geom_density(fill = "orange") +
@@ -314,35 +320,5 @@ dataset |>
        x = "Proportion of Seats Held by Women (%)",
        y = "Density") +
   facet_wrap(~`Region`)
-
 ```
-
-
-
-### ... By Regions
-```{r}
-dataset |>
-  group_by(Region) |>
-  summarise("Average percentage of seats held by women in parliament" = mean(`Proportion of seats held by women in national parliaments (%)`)) |>
-  ggplot(aes(x = Region, y = `Average percentage of seats held by women in parliament`, fill = Region)) +
-  geom_col() +
-  labs(title = "Average Proportion of Seats Held by Women in Parliament by Region (in %)",
-       x = "Region",
-       y = "Average Propotion (in %") 
-```
-
-
-###... By Income Group
-
-```{r}
-dataset |>
-  group_by(`Income Group`) |>
-  summarise("Average percentage of seats held by women in parliament" = mean(`Proportion of seats held by women in national parliaments (%)`)) |>
-  ggplot(aes(x =`Income Group` , y = `Average percentage of seats held by women in parliament`, fill = `Income Group`)) +
-  geom_col() +
-  labs(title = "Average Proportion of Seats Held by Women in Parliament by Income Group (in %)",
-       x = "Income Group",
-       y = "Average Propotion (in %") 
-```
-
 
