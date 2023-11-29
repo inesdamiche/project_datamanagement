@@ -1,5 +1,5 @@
 ---
-title: "Description of the data sets"
+title: "Data Management Project - First Part"
 authors: "Inès Damiche and Nila Gobiraj"
 format: html
 ---
@@ -203,21 +203,22 @@ The first step involved cleaning the World Development Indicators dataset in ord
 ```{r}
 # | message : false 
 # Data Cleaning - World Development Indicators.
-# We turn the rows that do not contains a values into NA value
+# We turn missing values  into NA value
 Dev <- world_dev |>
   mutate(`2021 [YR2021]` = na_if(`2021 [YR2021]`, ",,"))
-# We turn the values into numeric ones and make sure that Rstudio takes into account that the decimal separator is "," and not "."
+# We turn the values of each indicators  into numeric ones and make sure that Rstudio takes into account that the decimal separator is "," and not "."
 Dev <- Dev|>
   mutate(`2021 [YR2021]` = as.numeric(gsub(",",".", `2021 [YR2021]`)))
 ```
 
 ### UNDP Databases
 
-For the UNDP Databases ( Human Development Indices),this step involved selecting the columns of the variables we are interested in , changing the decimal indicator from "," to "." and renaming the columns in order to have uniform names across all databases.
+For the UNDP Databases ( Human Development Indices), this step involved selecting the columns of the variables we are interested in , changing the decimal indicator from "," to "." and renaming the columns in order to have uniform names across all databases.
 
 ```{r}
 # UNDP Database
 #we select columns we are interested in and turn the values into numeric ones 
+#HDI
 HDI<-
   HDI|>
   select(`Table 1. Human Development Index and its components`,...3)|>
@@ -265,9 +266,9 @@ meta_UNDP<-metadata_UNDP|>
 
 ### Meta-Data and Databases
 
-For the UNDP datasets , we computed a function to simplify the joining process with the meta-data. The aim of the function is to perform a left join with the UNDP database and the meta-data database,renaming the columns names and deleting the country name column from the final dataset in order to join them with the main dataset ( World Development Indicators) after.
+For the UNDP datasets , we computed a function to simplify the joining process with the meta-data. The aim of the function is to perform a left join with the UNDP and the meta-data databases, rename the columns names and delete the country name column from the final dataset in order to join them with the main dataset ( World Development Indicators) afterwards.
 
-Because some countries' names were computed differently in the meta-data database, we computed them manually by creating a separate dataset with the country names (as in the UNDP datasets) and their country code and binded them to the initial UNDP meta-data database.
+Because some countries' names were computed differently in the meta-data database, we computed them manually by creating a separate dataset with the countries' names (as in the UNDP datasets) and their country code and binded them to the initial UNDP meta-data database.
 
 ```{r}
 #MetaData Joining - UNDP databases
@@ -282,7 +283,7 @@ country_code<-function(dataset1,dataset2){
   
 }
 
-# we create a new metadata dataframe to join the country code for the 12 countries that couldn't be joined
+# we create a new  dataframe to join the country code for the 12 countries that couldn't be joined
 
 other <- tibble(`Country Name`  = c("United States", "United Kingdom", "Tanzania (United Republic of)", "Palestine, State of", "Netherlands","Moldova (Republic of)",	"Korea (Republic of)" , "Korea (Democratic People's Rep. of)" , "Hong Kong, China (SAR)",
 "Eswatini (Kingdom of)" , "Côte d'Ivoire" , "Congo (Democratic Republic of the)"),
@@ -297,7 +298,7 @@ Gini<-country_code(Gini,meta_UNDP)
 PHDI<-country_code(PHDI,meta_UNDP)
 ```
 
-For the World Bank database , we joined the meta-data with regions and the income groups by country code to the initial database.
+For the World Bank database , we joined the meta-data with the regions and the income groups by country code to the World Development Indicators database.
 
 ```{r}
 #MetaData Joining - WB databases
@@ -367,9 +368,10 @@ Finally, we will evaluate the relationship between women parliamentarians and th
 dataset |>
   ggplot(aes(x = `Proportion of seats held by women in national parliaments (%)`)) +
   geom_density(fill = "orange") +
-  labs(title = "Distribution of Proportion of Seats Held by Women in National Parliaments",
+  labs(title = "Distribution of the Proportion of Seats Held by Women in National Parliaments",
        x = "Proportion of Seats Held by Women in Parliaments (%)",
-       y = "Density") 
+       y = "Density") +
+  geom_rug(color="orange")
 
 ```
 
@@ -379,7 +381,8 @@ dataset |>
 dataset |>
   ggplot(aes(x = `Proportion of seats held by women in national parliaments (%)`)) +
   geom_density(fill = "orange") +
-  labs(title = "Distribution of Proportion of Seats Held by Women in National Parliaments by Income Groups",
+  geom_rug(color="orange")+
+  labs(title = "Distribution of the Proportion of Seats Held by Women in National Parliaments by Income Groups",
        x = "Proportion of Seats Held by Women (%)",
        y = "Density") +
   facet_wrap(~`Income Group`)
@@ -391,7 +394,8 @@ dataset |>
 dataset |>
   ggplot(aes(x = `Proportion of seats held by women in national parliaments (%)`)) +
   geom_density(fill = "orange") +
-  labs(title = "Distribution of Proportion of Seats Held by Women in National Parliaments by Regions",
+  geom_rug(color="orange")+
+  labs(title = "Distribution of the Proportion of Seats Held by Women in National Parliaments by Regions",
        x = "Proportion of Seats Held by Women (%)",
        y = "Density") +
   facet_wrap(~`Region`)
