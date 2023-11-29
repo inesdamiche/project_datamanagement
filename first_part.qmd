@@ -26,7 +26,7 @@ library(ggplot2)
 
 ### For the World Bank Database
 
-We got the data by generating it through the World Bank Database by selecting all the countries , 2021 for the year and our variables of interest (Percentage of Women in Parliament , Female Labour Participation and Labour Participation, Annual GDP growth, Military expenditure, Women Business and the Law Index Score) and by clicking on "Download options": <https://databank.worldbank.org/source/world-development-indicators>
+We got the data by generating it through the World Bank Database by selecting all the countries,2021 for the year and our variables of interest (Percentage of Women in Parliament , Female Labour Participation and Labour Participation, Annual GDP growth, Military expenditure, Women Business and the Law Index Score) and by clicking on "Download options": <https://databank.worldbank.org/source/world-development-indicators>
 
 We did the same thing for the meta-data (to join the countries by income group and regions): <https://databank.worldbank.org/source/world-development-indicators>
 
@@ -40,7 +40,7 @@ The meta-data for these databases is taken from the UN's Statistics Division web
 
 ## World Development Indicators
 
-The World Development Indicators are compiled by the **World Bank**. There are "a compilation of relevant, high quality, and internationally comparable statistics about global development and the fight against poverty".
+The World Development Indicators are compiled by the **World Bank**. There are "a compilation of relevant, high quality, and internationally comparable statistics about global development and the fight against poverty" (World Bank ,2023)
 
 ### Indicator: Proportion of seats held by women in national parliaments (%)
 
@@ -78,7 +78,7 @@ From this dataset compiled by the **UNDP**, we chose to only use the indicator "
 
 ### Indicator: Human development index and its components (HDI, Life expectancy at birth, expected years of schooling, mean years of schooling, gross national income per capita, GNI per capita rank minus HDI rank, HDI rank)
 
-From this dataset compiled by the **UNDP**, we chose to use the indicator "HDI" because we think it is the more relevant and concise one. To compute the HDI, the PNUD uses different indicators:
+From this dataset compiled by the **UNDP**, we chose to use the indicator "HDI" because we think it is the most relevant and concise one. To compute the HDI, the UNDP uses different indicators:
 
 -   Life expectancy at birth: **UNDESA (2022)**
 
@@ -90,7 +90,7 @@ From this dataset compiled by the **UNDP**, we chose to use the indicator "HDI" 
 
 ### Indicator: Gender development index
 
-From this dataset, we chose to only use the indicator "GDI" because we think it is the more relevant and concise one. GDI is computed thanks to different indicators:
+From this dataset, we chose to only use the indicator "GDI" because it is the most relevant and concise one. GDI is computed thanks to different indicators:
 
 -   Life expectancy at birth: **UNDESA (2022)**
 
@@ -102,7 +102,7 @@ From this dataset, we chose to only use the indicator "GDI" because we think it 
 
 ### Indicator: Inequality-adjusted Human Development Index (Coefficient of human inequality, Inequality in life expectancy, Inequality-adjusted life expectancy index, Inequality in education, Inequality-adjusted education index, Inequality in income, Inequality-adjusted income index, Income shares held by (%), Gini coefficient)
 
-From this dataset, we chose to only use the indicator "Gini coefficient" because we think it is the more relevant and concise one. The Gini coefficient comes from the **World Inequality Database (2022)** (<https://wid.world>).
+From this dataset, we chose to only use the indicator "Gini coefficient" because it is the most relevant and concise one. The Gini coefficient comes from the **World Inequality Database (2022)** (<https://wid.world>).
 
 # Tables with basic information
 
@@ -131,7 +131,7 @@ metadata_UNDP |>
   knitr::kable() 
 
 gender_dev |> 
-  summarise("nb of rows in gender_dev" = nrow(gender_dev), "nb of columns in metadata"   = ncol(gender_dev))|>
+  summarise("nb of rows in gender_dev" = nrow(gender_dev), "nb of columns in gender_dev"   = ncol(gender_dev))|>
   knitr::kable()
 
 HDI |> 
@@ -198,7 +198,7 @@ The Military expenditure (% of GDP) includes the proportion in the GDP of all cu
 
 ### World Development Indicators Dataset
 
-The first step involved cleaning the World Development Indicators dataset in order to convert the missing values denoted as ",,", into NA values.In addition , we converted the data type of the value of each indicator from string to numeric, while making sure to change to decimal indicator from "," to "." for RStudio to correctly identify the value as decimal.
+The first step involved cleaning the World Development Indicators dataset in order to convert the missing values denoted as ",,", into NA values.In addition , we converted the data type of the value of each indicator from string to numeric, while making sure to change the decimal indicator from "," to "." for RStudio to correctly identify the value as a decimal number.
 
 ```{r}
 # | message : false 
@@ -213,7 +213,7 @@ Dev <- Dev|>
 
 ### UNDP Databases
 
-For the UNDP Databases ( Human Development Indices) , this step involved selecting the columns of the variables we are interested in , changing the decimal indicators from "," to "." and renaming the columns in order to have uniform names across all databases.
+For the UNDP Databases ( Human Development Indices),this step involved selecting the columns of the variables we are interested in , changing the decimal indicator from "," to "." and renaming the columns in order to have uniform names across all databases.
 
 ```{r}
 # UNDP Database
@@ -265,9 +265,9 @@ meta_UNDP<-metadata_UNDP|>
 
 ### Meta-Data and Databases
 
-For the UNDP datasets , we computed a function to simplify the joining process with the meta-data. The aim of the function is to perform a left join with the UNDP database and the meta-data database,renaming the columns names and deleting the country name from the final dataset in order to join them with the main dataset ( World Development Indicators) after.
+For the UNDP datasets , we computed a function to simplify the joining process with the meta-data. The aim of the function is to perform a left join with the UNDP database and the meta-data database,renaming the columns names and deleting the country name column from the final dataset in order to join them with the main dataset ( World Development Indicators) after.
 
-Because some countries' names were computed in the meta-data database, we computed them manually by creating a separate dataset with the country names (as in the UNDP datasets) and their country code and binded them to the initial UNDP meta-data database.
+Because some countries' names were computed differently in the meta-data database, we computed them manually by creating a separate dataset with the country names (as in the UNDP datasets) and their country code and binded them to the initial UNDP meta-data database.
 
 ```{r}
 #MetaData Joining - UNDP databases
@@ -289,6 +289,7 @@ other <- tibble(`Country Name`  = c("United States", "United Kingdom", "Tanzania
   `ISO-alpha3 Code` = c("USA","GBR","TZA","PSE","NLD", "MDA","KOR","PRK","HKG","SWZ","CIV","COD"))
 meta_UNDP<-rbind(meta_UNDP,other)
 
+# Joining 
 
 HDI<-country_code(HDI,meta_UNDP)
 GDI<-country_code(GDI,meta_UNDP)
@@ -296,7 +297,7 @@ Gini<-country_code(Gini,meta_UNDP)
 PHDI<-country_code(PHDI,meta_UNDP)
 ```
 
-For the World Bank database , we joined the meta-data with region and the income groups by country code to the initial database.
+For the World Bank database , we joined the meta-data with regions and the income groups by country code to the initial database.
 
 ```{r}
 #MetaData Joining - WB databases
@@ -367,7 +368,7 @@ dataset |>
   ggplot(aes(x = `Proportion of seats held by women in national parliaments (%)`)) +
   geom_density(fill = "orange") +
   labs(title = "Distribution of Proportion of Seats Held by Women in National Parliaments",
-       x = "Proportion of Seats Held by Women (%)",
+       x = "Proportion of Seats Held by Women in Parliaments (%)",
        y = "Density") 
 
 ```
@@ -378,7 +379,7 @@ dataset |>
 dataset |>
   ggplot(aes(x = `Proportion of seats held by women in national parliaments (%)`)) +
   geom_density(fill = "orange") +
-  labs(title = "Distribution of Proportion of Seats Held by Women in National Parliaments",
+  labs(title = "Distribution of Proportion of Seats Held by Women in National Parliaments by Income Groups",
        x = "Proportion of Seats Held by Women (%)",
        y = "Density") +
   facet_wrap(~`Income Group`)
@@ -390,7 +391,7 @@ dataset |>
 dataset |>
   ggplot(aes(x = `Proportion of seats held by women in national parliaments (%)`)) +
   geom_density(fill = "orange") +
-  labs(title = "Distribution of Proportion of Seats Held by Women in National Parliaments",
+  labs(title = "Distribution of Proportion of Seats Held by Women in National Parliaments by Regions",
        x = "Proportion of Seats Held by Women (%)",
        y = "Density") +
   facet_wrap(~`Region`)
