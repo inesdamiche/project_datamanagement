@@ -158,40 +158,45 @@ The Human Development Index (HDI) is a composite index that measures a country's
 
 ### Gender Development Index
 
-The Gender Development Index (GDI) is a variant of the HDI which measures gender inequalities in the achievement of human development. It takes into account the same dimensions as HDI while considering the disparities between men and women. The indicators for each dimensions are : female and male life expectancy at birth (health) ,  female and male expected years of schooling for children and female and male mean years of schooling for adults ages 25 years and older (education) and female and male estimated earned income (standard of living/command over economic resources ).(UNDP , 2023)
+The Gender Development Index (GDI) is a variant of the HDI which measures gender inequalities in the achievement of human development. It takes into account the same dimensions as HDI while considering the disparities between men and women. The indicators for each dimensions are : female and male life expectancy at birth (health) , female and male expected years of schooling for children and female and male mean years of schooling for adults ages 25 years and older (education) and female and male estimated earned income (standard of living/command over economic resources ).(UNDP , 2023)
 
 ### Gini Coefficient
 
-The Gino coefficient aims to measures income inquality within a population. It takes a value from 0 (perfect equality) to 1 (perfect inequality). It illustrates to extent to which the income distribution deviates from perfect equality. 
+The Gino coefficient aims to measures income inquality within a population. It takes a value from 0 (perfect equality) to 1 (perfect inequality). It illustrates to extent to which the income distribution deviates from perfect equality.
 
 ### Planetary Pressures- Adjusted Human Development Index
+
 The Planetary Pressures-Adjusted Human Development Index ( PHDI) is also a variant of the HDI which discounts from the HDI the pressures on the planet. It is the level of HDI adjusted by carbon dioxide emissions per person (production-based) and material footprint per capita to account . With no pressures on the planet , it is equal to the HDI. It integrates environmental and sustainability concerns into the measurement of Human Development. (UNDP , 2023)
 
 ### Proportion of seats held by women in national parliaments(in %)
 
 It is the percentage of parliamentary seats (single or lower chamber) held by women in a country.
 
-### Labor force participation rate , female (% of female population ages 15+)(modeled ILO estimate) and  Labor force participation rate , total (% of total population ages 15+)(modeled ILO estimate)
-The Labor force participation rate is the proportion  of the population ages 15 and older that are economically active.Here "economically active" concerns "all people who supply labor for the production of goods and services during a specified period". (World Bank , 2023).
+### Labor force participation rate , female (% of female population ages 15+)(modeled ILO estimate) and Labor force participation rate , total (% of total population ages 15+)(modeled ILO estimate)
+
+The Labor force participation rate is the proportion of the population ages 15 and older that are economically active.Here "economically active" concerns "all people who supply labor for the production of goods and services during a specified period". (World Bank , 2023).
 
 The Female Labor force participation rate is the proportion of the female population ages 15 and older that are economically active
-
 
 ### GDP Growth (anuual %)
 
 The Annual GDP Growth is the Aanual percentage growth rate of GDP at market prices based on constant local currency. According to the World Bank's (2023) definition , the GDP is the sum of gross value added by all resident producers in the economy plus any product taxes and minus any subsidies not included in the value of the products. It aims to measure economic growth.
 
-
 ### Women Business and the Law Index Score (scale 1-100)
 
-The Women Business and the Law Index Score is an Index developed by the World Bank that measures on a scale from 1 to 100 how laws and regulations affect women’s economic opportunity.It is computed by taking the average score of 9 indices (Mobility, Workplace, Pay, Marriage, Parenthood, Entrepreneurship, Assets and Pension ). (World Bank , 2023)
+The Women Business and the Law Index Score is an Index developed by the World Bank that measures on a scale from 1 to 100 how laws and regulations affect women's economic opportunity.It is computed by taking the average score of 9 indices (Mobility, Workplace, Pay, Marriage, Parenthood, Entrepreneurship, Assets and Pension ). (World Bank , 2023)
 
 ### Military expenditure (% of GDP)
-The Military expenditure (% of GDP)  includes the proportion in the GDP of all current and capital expenditures on the armed forces, including peacekeeping forces; defense ministries and other government agencies engaged in defense projects; paramilitary forces. It aims to measure  a nation's prioritisation of defense spending relative to its overall economic activity. (World Bank , 2023)
 
-# Description of the data joining, cleaning, etc
+The Military expenditure (% of GDP) includes the proportion in the GDP of all current and capital expenditures on the armed forces, including peacekeeping forces; defense ministries and other government agencies engaged in defense projects; paramilitary forces. It aims to measure a nation's prioritisation of defense spending relative to its overall economic activity. (World Bank , 2023)
+
+# Description of the data joining and cleaning
+## Data Cleaning
+### World Development Indicators Dataset 
+The first step involved cleaning the World Development Indicators dataset in order to convert the missing values denoted as ",,", into NA values.In addition , we converted the data type of the value of each indicator from string to numeric, while making sure to change to decimal indicator from "," to "." for RStudio to correctly identify the value as decimal.
 
 ```{r}
+# | message : false 
 # Data Cleaning - World Development Indicators.
 # We turn the rows that do not contains a values into NA value
 Dev <- world_dev |>
@@ -200,7 +205,8 @@ Dev <- world_dev |>
 Dev <- Dev|>
   mutate(`2021 [YR2021]` = as.numeric(gsub(",",".", `2021 [YR2021]`)))
 ```
-
+### UNDP Databases
+For the UNDP Databases ( Human Development Indices) , this step involved selecting the columns of the variables we are interested in , changing the decimal indicators from "," to "." and renaming the columns in order to have uniform names across all databases.
 ```{r}
 # UNDP Database
 #we select columns we are interested in and turn the values into numeric ones 
@@ -231,6 +237,10 @@ PHDI<-planet_HDI|>
 
 ```
 
+
+### Meta-data Databases
+For the Meta-data Databases for both the World Bank's and the UNDP's databases , this step involved selecting the columns with the variables we are interested in and renaming them to ensure the  uniformity of the variables' names across the datasets.
+
 ```{r}
 # Metadata cleaning 
 #World Bank
@@ -243,6 +253,13 @@ meta_UNDP<-metadata_UNDP|>
   rename(`Country Name`=`Country or Area`)
 ```
 
+## Data Joining
+
+### Meta-Data and Databases
+
+For the UNDP datasets , we computed a function to simplify the joining process with the meta-data. The aim of the function is to perform a left join with the UNDP database and the meta-data database,renaming the columns names and deleting the country name from the final dataset in order to join them with the main dasaset ( World Development Indicators) after.
+
+Because some countries' names were computed in the meta-data database, we computed them manually by creating  a separate dataset with the country names (as in the UNDP datasets) and their country code and binded them to the initial UNDP meta-data database.
 ```{r}
 #MetaData Joining - UNDP databases
 #join UNDP data with their Country Code
@@ -270,6 +287,7 @@ Gini<-country_code(Gini,meta_UNDP)
 PHDI<-country_code(PHDI,meta_UNDP)
 ```
 
+For the World Bank datase , we joined the meta-data with region and the income groups by country code to the initial database.
 ```{r}
 #MetaData Joining - WB databases
 meta_WB<-meta_WB|>
@@ -279,6 +297,7 @@ Dev<-left_join(Dev, meta_WB, join_by(`Country Code`))
 
 ```
 
+As a last step , we joined the UNDP databases to the World Development Indicators' one. 
 ```{r}
 # Databases Joining
 Dev <-inner_join(Dev,GDI,join_by(`Country Code`))
@@ -288,6 +307,12 @@ Dev <-inner_join(Dev,Gini,join_by(`Country Code`))
 # Final Dataset
 dataset <- inner_join(Dev, PHDI, join_by(`Country Code`))
 
+
+```
+### Final Dataset 
+
+Finally , we created the final dataset by using the pivot_wider() function in order to transform the world development indicators into columns to have separate variables. Then, we eliminated all the countries that had at least one NA .
+```{r}
 # Turn the Indicators from the World Bank Databases into Columns 
 dataset<-dataset|>
   select(-`Series Code`)|>
@@ -295,7 +320,6 @@ dataset<-dataset|>
 
 # Elimination of all the NA Values 
 dataset<-na.omit(dataset)
-
 ```
 
 # Description of the research question (500 words)
@@ -315,6 +339,7 @@ dataset |>
        y = "Density") 
 
 ```
+
 ### ... By Income Group
 
 ```{r}
@@ -341,16 +366,14 @@ dataset |>
 
 ### Sources
 
-United Nations Development Programme (2023). Human Development Index. [online] United Nations Development Programme. Available at: https://hdr.undp.org/data-center/human-development-index#/indicies/HDI.
+United Nations Development Programme (2023). Human Development Index. \[online\] United Nations Development Programme. Available at: https://hdr.undp.org/data-center/human-development-index#/indicies/HDI.
 
-United Nations Development Programme (2023). Gender Development Index. [online] hdr.undp.org. Available at: https://hdr.undp.org/gender-development-index#/indicies/GDI.
+United Nations Development Programme (2023). Gender Development Index. \[online\] hdr.undp.org. Available at: https://hdr.undp.org/gender-development-index#/indicies/GDI.
 
-United Nations Development Programme (2023). Planetary pressures–adjusted Human Development Index. [online] hdr.undp.org. Available at: https://hdr.undp.org/planetary-pressures-adjusted-human-development-index#/indicies/PHDI.
+United Nations Development Programme (2023). Planetary pressures--adjusted Human Development Index. \[online\] hdr.undp.org. Available at: https://hdr.undp.org/planetary-pressures-adjusted-human-development-index#/indicies/PHDI.
 
+World Bank (2023). GDP Growth (annual %) \| Data. \[online\] Worldbank.org. Available at: https://data.worldbank.org/indicator/ny.gdp.mktp.kd.zg
 
-World Bank (2023). GDP Growth (annual %) | Data. [online] Worldbank.org. Available at: https://data.worldbank.org/indicator/ny.gdp.mktp.kd.zg
-
-World Bank (2023).. Women Business and the Law Index Score (scale 1-100) | Data. [online] Available at: https://data.worldbank.org/indicator/SG.LAW.INDX.
-The World Bank (2023). Military expenditure (% of GDP) | Data. [online] Worldbank.org. Available at:https://data.worldbank.org/indicator/MS.MIL.XPND.GD.ZS.
+World Bank (2023).. Women Business and the Law Index Score (scale 1-100) \| Data. \[online\] Available at: https://data.worldbank.org/indicator/SG.LAW.INDX. The World Bank (2023). Military expenditure (% of GDP) \| Data. \[online\] Worldbank.org. Available at:https://data.worldbank.org/indicator/MS.MIL.XPND.GD.ZS.
 
 ‌
