@@ -275,9 +275,74 @@ dataset|>
   ggplot(aes(x=`Proportion of seats held by women in national parliaments (%)`)) +
            geom_histogram(bins=20)+
   geom_rug()
+
+dataset|>
+  ggplot(aes(x=`Proportion of seats held by women in national parliaments (%)`)) +
+           geom_histogram(bins=20)+
+  geom_rug()+
+  facet_wrap(~Region)
+
+
+dataset|>
+  ggplot(aes(x=`Proportion of seats held by women in national parliaments (%)`)) +
+           geom_histogram(bins=20)+
+  geom_rug()+
+  facet_wrap(~`Income Group`)
+
+
 ```
+```{r}
+dataset |>
+  ggplot(aes(x = `Proportion of seats held by women in national parliaments (%)`)) +
+  geom_density(fill = "orange") +
+  labs(title = "Distribution of Proportion of Seats Held by Women in National Parliaments",
+       x = "Proportion of Seats Held by Women (%)",
+       y = "Density") 
+
+dataset |>
+  ggplot(aes(x = `Proportion of seats held by women in national parliaments (%)`)) +
+  geom_density(fill = "orange") +
+  labs(title = "Distribution of Proportion of Seats Held by Women in National Parliaments",
+       x = "Proportion of Seats Held by Women (%)",
+       y = "Density") +
+  facet_wrap(~`Income Group`)
+
+dataset |>
+  ggplot(aes(x = `Proportion of seats held by women in national parliaments (%)`)) +
+  geom_density(fill = "orange") +
+  labs(title = "Distribution of Proportion of Seats Held by Women in National Parliaments",
+       x = "Proportion of Seats Held by Women (%)",
+       y = "Density") +
+  facet_wrap(~`Region`)
+
+```
+
+
+
 ### ... By Regions
-dataset|> group_by
+```{r}
+dataset |>
+  group_by(Region) |>
+  summarise("Average percentage of seats held by women in parliament" = mean(`Proportion of seats held by women in national parliaments (%)`)) |>
+  ggplot(aes(x = Region, y = `Average percentage of seats held by women in parliament`, fill = Region)) +
+  geom_col() +
+  labs(title = "Average Proportion of Seats Held by Women in Parliament by Region (in %)",
+       x = "Region",
+       y = "Average Propotion (in %") 
+```
+
 
 ###... By Income Group
+
+```{r}
+dataset |>
+  group_by(`Income Group`) |>
+  summarise("Average percentage of seats held by women in parliament" = mean(`Proportion of seats held by women in national parliaments (%)`)) |>
+  ggplot(aes(x =`Income Group` , y = `Average percentage of seats held by women in parliament`, fill = `Income Group`)) +
+  geom_col() +
+  labs(title = "Average Proportion of Seats Held by Women in Parliament by Income Group (in %)",
+       x = "Income Group",
+       y = "Average Propotion (in %") 
+```
+
 
