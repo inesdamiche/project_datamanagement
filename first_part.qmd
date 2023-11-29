@@ -108,6 +108,7 @@ From this dataset, we chose to only use the indicator "Gini coefficient" because
 ## Loading the datasets
 
 ```{r}
+#| message : false
 metadata <- vroom(here("data csv/countries_metadata.csv")) 
 gender_dev <- vroom(here("data csv/dvlpmt_gender_index.csv"))
 planet_HDI <- vroom(here("data csv/HDI_planet.csv"))
