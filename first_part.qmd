@@ -191,8 +191,11 @@ The Women Business and the Law Index Score is an Index developed by the World Ba
 The Military expenditure (% of GDP) includes the proportion in the GDP of all current and capital expenditures on the armed forces, including peacekeeping forces; defense ministries and other government agencies engaged in defense projects; paramilitary forces. It aims to measure a nation's prioritisation of defense spending relative to its overall economic activity. (World Bank , 2023)
 
 # Description of the data joining and cleaning
+
 ## Data Cleaning
-### World Development Indicators Dataset 
+
+### World Development Indicators Dataset
+
 The first step involved cleaning the World Development Indicators dataset in order to convert the missing values denoted as ",,", into NA values.In addition , we converted the data type of the value of each indicator from string to numeric, while making sure to change to decimal indicator from "," to "." for RStudio to correctly identify the value as decimal.
 
 ```{r}
@@ -205,8 +208,11 @@ Dev <- world_dev |>
 Dev <- Dev|>
   mutate(`2021 [YR2021]` = as.numeric(gsub(",",".", `2021 [YR2021]`)))
 ```
+
 ### UNDP Databases
+
 For the UNDP Databases ( Human Development Indices) , this step involved selecting the columns of the variables we are interested in , changing the decimal indicators from "," to "." and renaming the columns in order to have uniform names across all databases.
+
 ```{r}
 # UNDP Database
 #we select columns we are interested in and turn the values into numeric ones 
@@ -237,9 +243,9 @@ PHDI<-planet_HDI|>
 
 ```
 
-
 ### Meta-data Databases
-For the Meta-data Databases for both the World Bank's and the UNDP's databases , this step involved selecting the columns with the variables we are interested in and renaming them to ensure the  uniformity of the variables' names across the datasets.
+
+For the Meta-data Databases for both the World Bank's and the UNDP's databases , this step involved selecting the columns with the variables we are interested in and renaming them to ensure the uniformity of the variables' names across the datasets.
 
 ```{r}
 # Metadata cleaning 
@@ -259,7 +265,8 @@ meta_UNDP<-metadata_UNDP|>
 
 For the UNDP datasets , we computed a function to simplify the joining process with the meta-data. The aim of the function is to perform a left join with the UNDP database and the meta-data database,renaming the columns names and deleting the country name from the final dataset in order to join them with the main dasaset ( World Development Indicators) after.
 
-Because some countries' names were computed in the meta-data database, we computed them manually by creating  a separate dataset with the country names (as in the UNDP datasets) and their country code and binded them to the initial UNDP meta-data database.
+Because some countries' names were computed in the meta-data database, we computed them manually by creating a separate dataset with the country names (as in the UNDP datasets) and their country code and binded them to the initial UNDP meta-data database.
+
 ```{r}
 #MetaData Joining - UNDP databases
 #join UNDP data with their Country Code
@@ -288,6 +295,7 @@ PHDI<-country_code(PHDI,meta_UNDP)
 ```
 
 For the World Bank datase , we joined the meta-data with region and the income groups by country code to the initial database.
+
 ```{r}
 #MetaData Joining - WB databases
 meta_WB<-meta_WB|>
@@ -297,7 +305,8 @@ Dev<-left_join(Dev, meta_WB, join_by(`Country Code`))
 
 ```
 
-As a last step , we joined the UNDP databases to the World Development Indicators' one. 
+As a last step , we joined the UNDP databases to the World Development Indicators' one.
+
 ```{r}
 # Databases Joining
 Dev <-inner_join(Dev,GDI,join_by(`Country Code`))
@@ -309,9 +318,11 @@ dataset <- inner_join(Dev, PHDI, join_by(`Country Code`))
 
 
 ```
-### Final Dataset 
+
+### Final Dataset
 
 Finally , we created the final dataset by using the pivot_wider() function in order to transform the world development indicators into columns to have separate variables. Then, we eliminated all the countries that had at least one NA .
+
 ```{r}
 # Turn the Indicators from the World Bank Databases into Columns 
 dataset<-dataset|>
@@ -322,7 +333,26 @@ dataset<-dataset|>
 dataset<-na.omit(dataset)
 ```
 
-# Description of the research question (500 words)
+# Description of the research question
+
+The 2023 Agenda for Sustainable Development puts a strong emphasis on advancing gender equality and the empowerment of women in leadership and decision‑making roles within the framework of SDG 5: Gender Equality. Indeed, with women constituting almost half of every country's population, their inclusion in the decision-making process is key to ensuring more representation in politics.
+
+Beyond transforming social norms and ensuring diversity, research has also shown that the involvement of women in politics could lead to shifts in policy priorities by positively influencing legislation regarding social justice, education, and peace. For instance, O'Brien and Piscopo (2018) demonstrated that female representatives can diversify legislative agendas in favor of vulnerable groups, while Ramstetter and Habersack (2019) found that within the European Parliament, women were notably more supportive of environmental legislation than men. This suggests that increasing the number of women in the legislative process could have a positive impact on a country's development by shifting public policy orientations.
+
+Our study aims to explore the correlation between the proportion of women occupying parliamentary seats and the implementation of public policies. We seek to analyze the interplay between women in parliament and various development and socio-economic indicators to identify recurring patterns. Thus, **we will investigate the extent to which the proportion of seats held by women in national parliaments influences public policy outcomes** by conducting an analysis across countries at the world level, the regional level, and within income groups to better understand the disparities and nuances within similar countries in terms of development.
+
+To account for different dimensions of a country's development and policy priorities, we will consider several indicators offering different lenses through which we can assess the influence of women in parliaments on public policies.
+
+We will first analyze basic development indicators such as the **Human Development Index (HDI) and the Annual GDP growth** to assess whether women's participation in decision-making correlates positively with human and economic development. Given the existing correlation between higher development and gender equality, we will also conduct analyses within regions and income groups to see if there are any patterns.
+
+In addition, we will also introduce other economic variables such as the **Total Labor Participation Rate and the Female Participation Rate** to assess the correlation with employment and economic inclusion.
+
+Furthermore, this study also aims to investigate the outcome of public policies regarding gender development with indicators such as the **Gender Development Index (GDI) and the Women Business and the Law Index Score**, which reflects legal frameworks supporting women in business and law.
+
+To assess potential shifts in policy orientation towards social justice and equality rather than economic growth and military spending, we will incorporate the **Military Expenditure (% of GDP)** indicator and the **Gini Coefficient ,** which provides a measure for policies regarding income inequality and wealth distribution.
+
+\
+Finally, we will evaluate the relationship between women parliamentarians and the priority given to environmental issues through the incorporation of the **Planetary Pressures-Adjusted Human Development Index (PHDI).**
 
 # Graphical representation of the main variable (women in parliament)
 
@@ -376,4 +406,6 @@ World Bank (2023). GDP Growth (annual %) \| Data. \[online\] Worldbank.org. Avai
 
 World Bank (2023).. Women Business and the Law Index Score (scale 1-100) \| Data. \[online\] Available at: https://data.worldbank.org/indicator/SG.LAW.INDX. The World Bank (2023). Military expenditure (% of GDP) \| Data. \[online\] Worldbank.org. Available at:https://data.worldbank.org/indicator/MS.MIL.XPND.GD.ZS.
 
-‌
+‌O\'Brien, D.Z. and Piscopo, J.M. (2018). The Impact of Women in Parliament. *The Palgrave Handbook of Women\'s Political Rights*, pp.53--72.
+
+Ramstetter, L. and Habersack, F. (2019). Do Women Make a difference? Analysing Environmental Attitudes and Actions of Members of the European Parliament. *Environmental Politics*, 29(6), pp.1--22.
