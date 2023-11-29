@@ -1,5 +1,6 @@
 ---
 title: "Description of the data sets"
+authors: "Inès Damiche and Nila Gobiraj"
 format: html
 ---
 
@@ -407,6 +408,6 @@ World Bank (2023). GDP Growth (annual %) \| Data. \[online\] Worldbank.org. Avai
 
 World Bank (2023).. Women Business and the Law Index Score (scale 1-100) \| Data. \[online\] Available at: https://data.worldbank.org/indicator/SG.LAW.INDX. The World Bank (2023). Military expenditure (% of GDP) \| Data. \[online\] Worldbank.org. Available at:https://data.worldbank.org/indicator/MS.MIL.XPND.GD.ZS.
 
-‌O\'Brien, D.Z. and Piscopo, J.M. (2018). The Impact of Women in Parliament. *The Palgrave Handbook of Women\'s Political Rights*, pp.53--72.
+‌O'Brien, D.Z. and Piscopo, J.M. (2018). The Impact of Women in Parliament. *The Palgrave Handbook of Women's Political Rights*, pp.53--72.
 
 Ramstetter, L. and Habersack, F. (2019). Do Women Make a difference? Analysing Environmental Attitudes and Actions of Members of the European Parliament. *Environmental Politics*, 29(6), pp.1--22.
